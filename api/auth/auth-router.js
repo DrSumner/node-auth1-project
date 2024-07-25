@@ -60,11 +60,16 @@ router.post('/login', checkUsernameExists, (req,res,next) => {
 
   users.findBy(credentials.username)
   .then( user => {
-    if(!bcrypt.compareSync(credentials.password, user.password)){
-      return res.status(401).json({ message: 'Invalid credentials' })
+    if(bcrypt.compareSync(credentials.password, user.password)){
+      req.session.user = user
+      
+      return res.json({message: `Welcome ${user.username}!`})   
     } 
+
     else
-    res.json({message: `Welcome ${user.username}!`})})
+    return res.status(401).json({ message: 'Invalid credentials' })
+    
+  })
   .catch(next)
 })
 
