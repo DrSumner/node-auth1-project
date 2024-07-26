@@ -9,7 +9,7 @@ const users = require('../users/users-model')
   }
 */
 function restricted(req,res,next) {
-if (req.session && req.session.userId){
+if (req.session && req.session.user){
   next()
 } else 
 res.status(401).json({message: 'you shall not pass!'})

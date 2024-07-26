@@ -63,7 +63,7 @@ router.post('/login', checkUsernameExists, (req,res,next) => {
     if(bcrypt.compareSync(credentials.password, user.password)){
       req.session.user = user
       
-      return res.json({message: `Welcome ${user.username}!`})   
+      return res.json({message: `Welcome ${req.session.user.username}!`})   
     } 
 
     else
