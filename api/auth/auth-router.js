@@ -33,7 +33,7 @@ const router = express.Router()
  */
 router.post('/register', checkUsernameFree, checkPasswordLength, (req,res,next) => {
   const credentials = req.body
-  const hash = bcrypt.hashSync(credentials.password, 14)
+  const hash = bcrypt.hashSync(credentials.password, 8)
   credentials.password = hash;
  users.add(req.body)
  .then(user => res.json(user))
@@ -96,7 +96,7 @@ router.get('/logout', (req,res, next) => {
       } else
       res.json({message: 'logged out'})
     });
-    
+
   } else
   res.json({message: 'no session'})
     })
